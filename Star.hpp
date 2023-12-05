@@ -28,6 +28,8 @@ public:
 
     // Function to update the star's position based on its velocity
     void updatePosition(double deltaTime) {
+        computeAcceleration();
+        computeVelocity(deltaTime);
         for (size_t i = 0; i < position.size(); ++i) {
             position[i] += velocity[i] * deltaTime;
         }
@@ -36,12 +38,7 @@ public:
     // Newton's law of gravitation
     void computeForce(const Star& otherStar) {
         // Compute the distance between the two stars
-        double distance = 0.0;
-        for (size_t i = 0; i < position.size(); ++i) {
-            distance += pow(position[i] - otherStar.position[i], 2);
-        }
-        distance = sqrt(distance);
-
+        double distance = computeDistance(otherStar);
 
         // Compute the force
         double forceMagnitude = G * mass * otherStar.mass / pow(distance, 2);
@@ -57,6 +54,22 @@ public:
         for (size_t i = 0; i < position.size(); ++i) {
             acceleration[i] = force[i] / mass;
         }
+    }
+    
+    void computeVelocity(double deltaTime) {
+        for (size_t i = 0; i < position.size(); ++i) {
+            velocity[i] += acceleration[i] * deltaTime;
+        }
+    }
+
+    // Compute the distance between another star
+    double computeDistance(const Star& otherStar) {
+        double distance = 0.0;
+        for (size_t i = 0; i < position.size(); ++i) {
+            distance += pow(position[i] - otherStar.position[i], 2);
+        }
+        distance = sqrt(distance);
+        return distance;
     }
 
 };
