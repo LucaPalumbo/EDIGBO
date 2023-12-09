@@ -6,7 +6,7 @@
 #include "../Constants.hpp"
 
 int main() {
-    double DeltaTime = SEC_PER_YEAR / 1000;
+    double DeltaTime = SEC_PER_YEAR / 100000;
     // Create two stars
     std::vector<double> initialPosition1 = {0.0, 0.0, 0.0};
     std::vector<double> initialVelocity1 = {C, 0.0, 0.0};
