@@ -10,8 +10,8 @@ $$ |\Delta p_y| = \int_{-\infty}^{+\infty}F_y dt = \int_{-\infty}^{+\infty} -\fr
 
 Remembering that $r^2 = b^2 +(vt)^2$ and $r\sin(\theta) = b$ we obtain
 
-$ |\Delta p_y| = -GM_1M_2b \int_{-\infty}^{+\infty} \frac{1}{(v^2t^2+b^2)^{3/2}}dt $
+$$ |\Delta p_y| = -GM_1M_2b \int_{-\infty}^{+\infty} \frac{1}{(v^2t^2+b^2)^{3/2}}dt $$
 
 that yields
 
-$ |\Delta p_y| = -\frac{2GM_1M_2}{bv} $
+$$ |\Delta p_y| = -\frac{2GM_1M_2}{bv} $$
