@@ -72,4 +72,12 @@ public:
         return distance;
     }
 
+    double getKineticEnergy() {
+        double kineticEnergy = 0.0;
+        for (size_t i = 0; i < velocity.size(); ++i) {
+            kineticEnergy += 0.5 * mass * pow(velocity[i], 2);
+        }
+        return kineticEnergy;
+    }
+
 };

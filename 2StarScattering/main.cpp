@@ -5,11 +5,21 @@
 #include "../Star.hpp"  
 #include "../Constants.hpp"
 
+double estimatedEnergyLoss(){
+    double bulletMass = M0;
+    double targetMass = M0 / 1e3;
+    double bulletVelocity = C/100;
+    double impactParameter = LY / 100;
+    double impulse =  2 * G * bulletMass * targetMass / (bulletVelocity * impactParameter);
+    double energyLoss = pow(impulse,2) / (2 * targetMass);
+    return energyLoss;
+}
+
 int main() {
-    double DeltaTime = SEC_PER_YEAR / 100000;
+    double DeltaTime = SEC_PER_YEAR / 1000;
     // Create two stars
     std::vector<double> initialPosition1 = {0.0, 0.0, 0.0};
-    std::vector<double> initialVelocity1 = {C, 0.0, 0.0};
+    std::vector<double> initialVelocity1 = {C/100, 0.0, 0.0};
     Star bullet(initialPosition1, initialVelocity1, M0);
 
     std::vector<double> initialPosition2 = {LY, LY/100, 0.0};
@@ -17,7 +27,11 @@ int main() {
     Star target(initialPosition2, initialVelocity2, M0 / 1e3) ;
 
 
-    //for (size_t i = 0; i < 200; ++i) {
+    double initialBulletKineticEnergy = bullet.getKineticEnergy();
+    double initialTargetKineticEnergy = target.getKineticEnergy();
+    std::cout << "Initial kinetic energy of bullet: " << initialBulletKineticEnergy << std::endl;
+    std::cout << "Initial kinetic energy of target: " << initialTargetKineticEnergy << std::endl;
+
     while( bullet.computeDistance(target) < 3*LY ) {
         bullet.computeForce(target);
         target.computeForce(bullet);
@@ -37,9 +51,14 @@ int main() {
         myfile2.open ("DataVisualization/bullet_target_velocity.txt", std::ios_base::app);
         myfile2 << bullet.getVelocity()[0] << " " << bullet.getVelocity()[1] << " " << bullet.getVelocity()[2] << " " << target.getVelocity()[0] << " " << target.getVelocity()[1] << " " << target.getVelocity()[2] << "\n";
         myfile2.close();
-
     }
 
-
+    double finalBulletKineticEnergy = bullet.getKineticEnergy();
+    double finalTargetKineticEnergy = target.getKineticEnergy();
+    double energyLossBullet = finalBulletKineticEnergy - initialBulletKineticEnergy;
+    double energyLossTarget = finalTargetKineticEnergy - initialTargetKineticEnergy;
+    std::cout << "Energy loss of bullet: \t" << energyLossBullet << std::endl;
+    std::cout << "Energy loss of target: \t" << energyLossTarget << std::endl;
+    std::cout << "Expected energy loss: \t" << estimatedEnergyLoss() << std::endl;
     return 0;
 }
