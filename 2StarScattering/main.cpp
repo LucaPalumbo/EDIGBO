@@ -60,8 +60,8 @@ int main() {
     long double finalTargetKineticEnergy = target.getKineticEnergy();
     long double energyLossBullet = finalBulletKineticEnergy - initialBulletKineticEnergy;
     long double energyLossTarget = finalTargetKineticEnergy - initialTargetKineticEnergy;
-    std::cout << "Energy loss of bullet: \t" << energyLossBullet << std::endl;
-    std::cout << "Energy loss of target: \t" << energyLossTarget << std::endl;
-    std::cout << "Expected energy loss: \t" << estimatedEnergyLoss() << std::endl;
+    std::cout << "Delta energy of bullet: \t" << energyLossBullet << std::endl;
+    std::cout << "Delta energy of target: \t" << energyLossTarget << std::endl;
+    std::cout << "Expected energy delta: \t" << estimatedEnergyLoss() << std::endl;
     return 0;
 }
